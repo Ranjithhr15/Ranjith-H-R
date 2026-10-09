@@ -40,3 +40,5 @@ $(document).ready(function() {
 
   }
 });
+
+remove rst by changing clock.txt
