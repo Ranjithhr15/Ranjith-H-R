@@ -1,19 +1,19 @@
 $(document).ready(function() {
   let clock;
 
-  // ✅ REMOVE RS T - Set labels to blank
-  FlipClock.Lang.Custom = { 
-    days: '', 
-    hours: '', 
-    minutes: '', 
-    seconds: '' 
+  // REMOVE RS T - Blank labels
+  FlipClock.Lang.Custom = {
+    days: '',
+    hours: '',
+    minutes: '',
+    seconds: ''
   };
 
-  let now = moment.tz("Asia/Kolkata");
-  // Change to Nov 16 for Ranjith - Next month
+  let currentDate = new Date();
   let targetDate = moment.tz("2026-11-16 12:00", "Asia/Kolkata");
 
-  let diff = targetDate.diff(now, 'seconds');
+  // FIXED DIFF CALCULATION
+  let diff = targetDate.valueOf() / 1000 - currentDate.getTime() / 1000;
 
   if (diff <= 0) {
     clock = $(".clock-fix").FlipClock(0, {
