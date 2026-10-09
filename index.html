@@ -101,6 +101,48 @@
 What started as two separate stories is now becoming one,<br> and we can’t wait to celebrate this special beginning with the people who matter most to us. 💍 <br>
  
 Your presence would truly make our day brighter and more meaningful<br> as we step into this new chapter together ❣️."</h2>
+								// Countdown till 16th Nov 2026 - 12 PM IST (Next Month)
+$(document).ready(function() {
+    var weddingDate = moment.tz("2026-11-16 12:00:00", "Asia/Kolkata");
+    
+    function updateClock() {
+        var now = moment.tz("Asia/Kolkata");
+        var diff = weddingDate.diff(now, 'seconds');
+        
+        if(diff <= 0) {
+            $('.clock').html("<h3 style='color:white;'>We are Married! ❤️</h3>");
+            return;
+        }
+        
+        // If FlipClock available
+        if(typeof FlipClock !== 'undefined' && $('.clock').length) {
+            var clock = $('.clock').FlipClock(diff, {
+                clockFace: 'DailyCounter',
+                countdown: true,
+                autoStart: true
+            });
+        }
+    }
+    
+    updateClock();
+    
+    // Simple fallback if FlipClock fails
+    setInterval(function(){
+        var now = moment.tz("Asia/Kolkata");
+        var diff = weddingDate.diff(now);
+        if(diff <= 0) return;
+        var d = moment.duration(diff);
+        var html = '<div style="color:white; font-size:20px; text-align:center;">'
+                 + Math.floor(d.asDays()) + ' Days '
+                 + d.hours() + ' Hrs '
+                 + d.minutes() + ' Mins '
+                 + d.seconds() + ' Secs</div>';
+        // Only show fallback if flipclock didn't load
+        if($('.flip-clock-wrapper').length === 0){
+            $('.clock').html(html);
+        }
+    }, 1000);
+});
 								<div class="flipTimebox">
 								  <div class="clock clock-fix"></div>
 								</div>
