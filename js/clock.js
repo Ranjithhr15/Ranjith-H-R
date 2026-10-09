@@ -1,20 +1,42 @@
-$(document).ready(function(){
-  function updateTimer(){
-    var target = moment.tz("2026-11-16 12:00", "Asia/Kolkata");
-    var now = moment.tz("Asia/Kolkata");
-    var diff = target.diff(now);
-    if(diff <= 0){
-      $("#clean-timer").html("We are Married! ❤️");
-      return;
-    }
-    var d = moment.duration(diff);
-    var days = Math.floor(d.asDays());
-    var hrs = d.hours();
-    var mins = d.minutes();
-    var secs = d.seconds();
-    // NO RS T - ONLY NUMBERS WITH COLON
-    $("#clean-timer").html(days + " : " + hrs + " : " + mins + " : " + secs);
+$(document).ready(function() {
+  let clock;
+
+  // ✅ Custom labels (clean & official way)
+  FlipClock.Lang.Custom = {
+    days: 'Days',
+    hours: 'Hours',
+    minutes: 'Minutes',
+    seconds: 'Seconds'
+  };
+
+  let currentDate = new Date();
+  let targetDate = moment.tz("2026-07-05 12:30", "Asia/Kolkata");
+
+  let diff = targetDate / 1000 - currentDate.getTime() / 1000;
+
+  if (diff <= 0) {
+
+    clock = $(".clock-fix").FlipClock(0, {
+      clockFace: "DailyCounter",
+      countdown: true,
+      language: "Custom",
+      autoStart: false
+    });
+
+    console.log("Date has already passed!");
+
+  } else {
+
+    clock = $(".clock-fix").FlipClock(diff, {
+      clockFace: "DailyCounter",
+      countdown: true,
+      language: "Custom",
+      callbacks: {
+        stop: function() {
+          console.log("Timer has ended!");
+        }
+      }
+    });
+
   }
-  updateTimer();
-  setInterval(updateTimer, 1000);
 });
