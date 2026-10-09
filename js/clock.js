@@ -10,7 +10,7 @@ $(document).ready(function() {
   };
 
   let currentDate = new Date();
-  let targetDate = moment.tz("2026-11-16 12:00", "Asia/Kolkata");
+  let targetDate = moment.tz("2026-07-05 12:30", "Asia/Kolkata");
 
   let diff = targetDate / 1000 - currentDate.getTime() / 1000;
 
@@ -40,5 +40,3 @@ $(document).ready(function() {
 
   }
 });
-
-remove rst by changing clock.txt
